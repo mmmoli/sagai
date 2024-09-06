@@ -1,4 +1,4 @@
-import domain/name.{TooShortError, new, new_with_default}
+import domain/resource/name.{TooShortError, new, new_with_default}
 import gleeunit
 import gleeunit/should
 

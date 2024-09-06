@@ -1,6 +1,6 @@
-import domain/date
-import domain/name.{type ResourceName, type ResourceNameError}
-import domain/value.{type ResourceValue}
+import domain/resource/date
+import domain/resource/name.{type ResourceName, type ResourceNameError}
+import domain/resource/value.{type ResourceValue}
 import gleam/option.{type Option, None, Some}
 import gleam/result.{try}
 

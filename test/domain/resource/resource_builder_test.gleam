@@ -1,8 +1,8 @@
 import birl
-import domain/date
-import domain/name.{new}
-import domain/resource_builder as builder
-import domain/value
+import domain/resource/date
+import domain/resource/name.{new}
+import domain/resource/resource_builder as builder
+import domain/resource/value
 import gleam/option.{None, Some}
 import gleam/result
 import gleeunit
