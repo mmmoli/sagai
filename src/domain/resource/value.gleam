@@ -1,3 +1,5 @@
+import gleam/float
+
 pub opaque type ResourceValue {
   ResourceValue(value: Float)
 }
@@ -19,4 +21,10 @@ pub fn to_float(v: ResourceValue) -> Float {
   case v {
     ResourceValue(value) -> value
   }
+}
+
+pub fn to_string(v: ResourceValue) -> String {
+  v
+  |> to_float
+  |> float.to_string
 }

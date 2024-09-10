@@ -10,3 +10,20 @@ pub type Resource {
     value: ResourceValue,
   )
 }
+
+pub fn to_string(resource: Resource) -> String {
+  resource.name
+  |> name.to_string()
+}
+
+pub fn debug(resource: Resource) -> String {
+  let name =
+    resource
+    |> to_string
+
+  let value =
+    resource.value
+    |> value.to_string()
+
+  name <> ": " <> value
+}

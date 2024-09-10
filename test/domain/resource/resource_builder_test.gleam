@@ -8,7 +8,7 @@ import gleam/option.{None, Some}
 import gleam/result
 import gleeunit/should
 
-pub fn new_test() {
+pub fn create_test() {
   let name_str = "Resource1"
   let name = Some(name_str)
   let day = birl.Day(2023, 10, 1)
@@ -28,7 +28,7 @@ pub fn new_test() {
   should.equal(expected_value, value.to_float(r.value))
 }
 
-pub fn new_with_defaults_test() {
+pub fn create_with_defaults_test() {
   let name = None
   let created_at = None
   let updated_at = None

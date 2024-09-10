@@ -25,3 +25,7 @@ pub fn create_with_default() -> Result(ResourceName, ResourceNameError) {
   default_resource_name
   |> create()
 }
+
+pub fn to_string(resource_name: ResourceName) -> String {
+  resource_name.value
+}
