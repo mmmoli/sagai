@@ -6,7 +6,7 @@ pub type ResourceValueError {
   ZeroValueError
 }
 
-pub fn new(value: Float) -> Result(ResourceValue, ResourceValueError) {
+pub fn create(value: Float) -> Result(ResourceValue, ResourceValueError) {
   let is_zero = value == 0.0
 
   case is_zero {

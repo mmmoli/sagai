@@ -1,17 +1,9 @@
 import domain/resource/date
 import domain/resource/name.{type ResourceName, type ResourceNameError}
+import domain/resource/resource
 import domain/resource/value.{type ResourceValue}
 import gleam/option.{type Option, None, Some}
 import gleam/result.{try}
-
-pub type Resource {
-  Resource(
-    name: ResourceName,
-    created_at: date.DateStamp(date.CreatedAt),
-    updated_at: date.DateStamp(date.UpdatedAt),
-    value: ResourceValue,
-  )
-}
 
 pub type ResourceBuilderError {
   ResourceNameNotSetError(ResourceNameError)
@@ -29,7 +21,7 @@ pub type ResourceBuilder {
   )
 }
 
-pub fn new(
+pub fn create(
   name: Option(String),
   created_at: Option(date.DateStamp(date.CreatedAt)),
   updated_at: Option(date.DateStamp(date.UpdatedAt)),
@@ -39,26 +31,26 @@ pub fn new(
 
   let name_result =
     case name {
-      Some(str) -> name.new(str)
-      None -> name.new_with_default()
+      Some(str) -> name.create(str)
+      None -> name.create_with_default()
     }
     |> result.map_error(fn(reason) { ResourceNameNotSetError(reason) })
 
   let value_result =
     value
     |> option.unwrap(1.0)
-    |> value.new()
+    |> value.create()
     |> result.map_error(fn(_) { ValueNotSetError })
 
   let created_at_result =
     created_at
-    |> option.unwrap(date.new_created_at(now))
+    |> option.unwrap(date.create_created_at(now))
     |> Ok
     |> result.map_error(fn(_) { CreatedAtNotSetError })
 
   let updated_at_result =
     updated_at
-    |> option.unwrap(date.new_updated_at(now))
+    |> option.unwrap(date.create_updated_at(now))
     |> Ok
     |> result.map_error(fn(_) { UpdatedAtNotSetError })
 
@@ -74,7 +66,7 @@ pub fn with_name_str(builder: ResourceBuilder, name: String) -> ResourceBuilder 
   ResourceBuilder(
     ..builder,
     name: name
-      |> name.new()
+      |> name.create()
       |> result.map_error(fn(reason) { ResourceNameNotSetError(reason) }),
   )
 }
@@ -104,18 +96,20 @@ pub fn with_value(builder: ResourceBuilder, value: Float) -> ResourceBuilder {
   ResourceBuilder(
     ..builder,
     value: value
-      |> value.new()
+      |> value.create()
       |> result.map_error(fn(_) { ValueNotSetError }),
   )
 }
 
-pub fn build(builder: ResourceBuilder) -> Result(Resource, ResourceBuilderError) {
+pub fn build(
+  builder: ResourceBuilder,
+) -> Result(resource.Resource, ResourceBuilderError) {
   use name <- try(builder.name)
   use created_at <- try(builder.created_at)
   use updated_at <- try(builder.updated_at)
   use value <- try(builder.value)
 
-  Ok(Resource(
+  Ok(resource.Resource(
     name: name,
     created_at: created_at,
     updated_at: updated_at,
