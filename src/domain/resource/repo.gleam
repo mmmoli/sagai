@@ -8,7 +8,7 @@ pub type ResourceRepoError {
 pub type ResourceRepo {
   ResourceRepo(
     list_all: fn() -> Result(List(resource.Resource), Nil),
-    save: fn() -> Result(Nil, ResourceRepoError),
-    delete: fn() -> Result(Nil, ResourceRepoError),
+    save: fn(resource.Resource) -> Result(Nil, ResourceRepoError),
+    delete: fn(resource.Resource) -> Result(Nil, ResourceRepoError),
   )
 }

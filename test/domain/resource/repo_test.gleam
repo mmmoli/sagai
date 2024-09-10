@@ -20,8 +20,8 @@ fn generate_resources() -> List(resource.Resource) {
 fn create() -> repo.ResourceRepo {
   let list = generate_resources()
   let list_all = fn() { Ok(list) }
-  let save = fn() { Ok(Nil) }
-  let delete = fn() { Ok(Nil) }
+  let save = fn(_: resource.Resource) { Ok(Nil) }
+  let delete = fn(_: resource.Resource) { Ok(Nil) }
 
   repo.ResourceRepo(list_all, save, delete)
 }
